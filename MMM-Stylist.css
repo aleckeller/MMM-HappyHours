@@ -1,0 +1,14 @@
+/*
+ *
+ * MMM-Stylist
+ *
+ * Alec Keller
+ * {{LICENSE}} Licensed.
+ *
+ * css module
+ *
+ */
+ .outfit {
+ 	width: 50%;               /* width of picture */
+  	height: 50%;              /* height of picture */
+ }
