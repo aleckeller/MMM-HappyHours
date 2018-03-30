@@ -29,7 +29,7 @@ Module.register("MMM-HappyHours", {
 	getDom: function() {
 		//main wrapper
 		var wrapper = document.createElement("div");
-
+		wrapper.innerHTML = 'Happy hours are hype';
 
 		return wrapper;
 
