@@ -11,10 +11,11 @@ Module.register("MMM-HappyHours", {
 
   //default config
   defaults: {
-    updateInterval: 10000,
+    updateInterval: 60000,
 		initialLoadDelay: 875,
     state: 'us_va',
-    city: 'arlington-3'
+    city: 'arlington-3',
+    useDayOfWeek: true
   },
 
   start: function() {
@@ -27,7 +28,14 @@ Module.register("MMM-HappyHours", {
   },
 
 	getUrl: function() {
-		var url = "www.testurl.com";
+    var url = "";
+    if (this.config.useDayOfWeek) {
+      var day = this.getDayOfWeek();
+      url = "http://thehappyhourfinder.com/" + this.config.state + "/" + this.config.city + "/?weekday=" + day;
+    }
+    else{
+      url = "http://thehappyhourfinder.com/" + this.config.state + "/" + this.config.city;
+    }
 		return url;
 	},
 
@@ -42,6 +50,19 @@ Module.register("MMM-HappyHours", {
 
 	getHappyHours: function() {
     this.sendSocketNotification('GET_HAPPY_HOURS',this.url);
+  },
+
+  getDayOfWeek: function() {
+    var date = new Date();
+    var weekday = new Array(7);
+    weekday[0] = "sunday";
+    weekday[1] = "monday";
+    weekday[2] = "tuesday";
+    weekday[3] = "wednesday";
+    weekday[4] = "thursday";
+    weekday[5] = "friday";
+    weekday[6] = "saturday";
+    return weekday[date.getDay()];
   },
 
   getDom: function() {
@@ -62,6 +83,7 @@ Module.register("MMM-HappyHours", {
     if (notification === "HAPPY_HOURS_RESULT") {
       this.loaded = true;
 			console.log(payload);
+      this.updateDom();
     }
   },
 

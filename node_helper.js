@@ -8,6 +8,7 @@
  */
 
 const NodeHelper = require('node_helper');
+const request = require('request');
 
 module.exports = NodeHelper.create({
 
@@ -17,9 +18,20 @@ module.exports = NodeHelper.create({
 
   socketNotificationReceived: function(notification, payload) {
     if (notification === 'GET_HAPPY_HOURS') {
-        console.log(payload)
-        this.sendSocketNotification('HAPPY_HOURS_RESULT',"Parsed cool happy hours!!!!!");
+      this.getHappyHourHTML(payload);
     }
-  }
+  },
+
+  getHappyHourHTML: function(url){
+    request(url, function (error, response, body) {
+      if (error){
+        return console.error('Error:',error);
+      }
+      else{
+        console.log(body);
+        this.sendSocketNotification('HAPPY_HOURS_RESULT', "Parsed happy hours");
+      }
+    });
+  },
 
 });
