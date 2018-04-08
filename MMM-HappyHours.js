@@ -24,9 +24,9 @@ Module.register("MMM-HappyHours", {
     console.log("Starting " + this.name);
 
     this.loaded = false;
-    this.url = this.getUrl();
-    this.scheduleUpdate();
     this.happyHours = "";
+    this.url = this.getUrl();
+    this.getHappyHours();
 
   },
 
@@ -40,15 +40,6 @@ Module.register("MMM-HappyHours", {
       url = base + this.config.state + "/" + this.config.city;
     }
     return url;
-  },
-
-  scheduleUpdate: function() {
-    //immediately get happy hours
-    this.getHappyHours();
-    //then repeat for the interval
-    setInterval(() => {
-      this.getHappyHours();
-    }, this.config.updateInterval);
   },
 
   getHappyHours: function() {
