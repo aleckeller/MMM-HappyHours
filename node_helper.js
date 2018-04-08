@@ -9,6 +9,8 @@
 
 const NodeHelper = require('node_helper');
 const request = require('request');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 module.exports = NodeHelper.create({
 
@@ -23,15 +25,23 @@ module.exports = NodeHelper.create({
   },
 
   getHappyHourHTML: function(url){
-    request(url, function (error, response, body) {
+    request({
+        url: url,
+        method: 'GET'
+    }, (error, response, body) => {
       if (error){
         return console.error('Error:',error);
       }
       else{
-        console.log(body);
-        this.sendSocketNotification('HAPPY_HOURS_RESULT', "Parsed happy hours");
+        var dom = new JSDOM(body);
+        var locationAndTimesHTML = dom.window.document.querySelectorAll(".hh-description");
+        var locationAndTimesText = [];
+        for (i = 0; i < locationAndTimesHTML.length; i++){
+          locationAndTimesText.push(locationAndTimesHTML[i].textContent);
+        }
+        this.sendSocketNotification("HAPPY_HOURS_RESULT",locationAndTimesText);
       }
     });
-  },
+  }
 
 });

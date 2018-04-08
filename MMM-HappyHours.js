@@ -11,10 +11,10 @@ Module.register("MMM-HappyHours", {
 
   //default config
   defaults: {
-    updateInterval: 60000,
+    updateInterval: 10000000,
     initialLoadDelay: 875,
     state: 'us_va',
-    city: 'arlington-3',
+    city: 'herndon',
     useDayOfWeek: true
   },
 
@@ -24,6 +24,7 @@ Module.register("MMM-HappyHours", {
     this.loaded = false;
     this.url = this.getUrl();
     this.scheduleUpdate();
+    this.happyHours = "";
 
   },
 
@@ -31,9 +32,10 @@ Module.register("MMM-HappyHours", {
     var url = "";
     if (this.config.useDayOfWeek) {
       var day = this.getDayOfWeek();
-      url = "http://thehappyhourfinder.com/" + this.config.state + "/" + this.config.city + "/?weekday=" + day;
+      var base = "http://thehappyhourfinder.com/";
+      url = base + this.config.state + "/" + this.config.city + "/?weekday=" + day;
     } else {
-      url = "http://thehappyhourfinder.com/" + this.config.state + "/" + this.config.city;
+      url = base + this.config.state + "/" + this.config.city;
     }
     return url;
   },
@@ -73,7 +75,18 @@ Module.register("MMM-HappyHours", {
       wrapper.innerHTML = "Finding Happy Hours Near You...";
       return wrapper;
     }
-    wrapper.innerHTML = "Loaded!";
+    var scrolling = document.createElement("marquee");
+    scrolling.behavior = "scroll";
+    scrolling.direction = "up";
+    scrolling.height = "200";
+    scrolling.width = "500";
+    for (i = 0; i < this.happyHours.length; i++){
+      scrolling.innerHTML += this.happyHours[i];
+      for (j = 0; j < 8; j++){
+        scrolling.innerHTML += "<br>"
+      }
+    }
+    wrapper.appendChild(scrolling);
     return wrapper;
 
   },
@@ -81,7 +94,7 @@ Module.register("MMM-HappyHours", {
   socketNotificationReceived: function(notification, payload) {
     if (notification === "HAPPY_HOURS_RESULT") {
       this.loaded = true;
-      console.log(payload);
+      this.happyHours = payload;
       this.updateDom();
     }
   },
