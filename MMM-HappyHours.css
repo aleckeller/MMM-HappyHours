@@ -8,3 +8,10 @@
  * css module
  *
  */
+ @import url('https://fonts.googleapis.com/css?family=Oswald');
+
+ .MMM-HappyHours .title {
+	font-family: 'Oswald', sans-serif;
+  float: left;
+  padding-bottom: 20px;
+}

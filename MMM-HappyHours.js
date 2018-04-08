@@ -15,7 +15,9 @@ Module.register("MMM-HappyHours", {
     initialLoadDelay: 875,
     state: 'us_va',
     city: 'herndon',
-    useDayOfWeek: true
+    useDayOfWeek: true,
+    maxWidth: "400px",
+    maxHeight: "200px"
   },
 
   start: function() {
@@ -69,20 +71,36 @@ Module.register("MMM-HappyHours", {
   getDom: function() {
     //main wrapper
     var wrapper = document.createElement("div");
+    wrapper.style.maxWidth = this.config.maxWidth;
 
     //show loading screen
     if (!this.loaded) {
-      wrapper.innerHTML = "Finding Happy Hours Near You...";
+      var loadingDiv = document.createElement("div");
+      loadingDiv.classList.add("medium","bold");
+      loadingDiv.innerHTML = "Finding Happy Hours Near You...";
+      wrapper.appendChild(loadingDiv);
       return wrapper;
     }
+    //title
+    var title = document.createElement("span");
+		title.classList.add("medium", "bright","title");
+    //capitalize first letter
+    var city = this.config.city.charAt(0).toUpperCase() + this.config.city.slice(1);
+    var state = this.config.state.split('_')[1].toUpperCase();
+		title.innerHTML = "Happy Hours in " + city + "," + state;
+		wrapper.appendChild(title);
+
     var scrolling = document.createElement("marquee");
+    //Scrolling box config
     scrolling.behavior = "scroll";
     scrolling.direction = "up";
-    scrolling.height = "200";
-    scrolling.width = "500";
+    scrolling.style.maxHeight = this.config.maxHeight;
+    scrolling.classList.add("small","bright","regular");
+
+    //get each happy hour description and add some breaks in between to space out
     for (i = 0; i < this.happyHours.length; i++){
       scrolling.innerHTML += this.happyHours[i];
-      for (j = 0; j < 8; j++){
+      for (j = 0; j < 3; j++){
         scrolling.innerHTML += "<br>"
       }
     }
