@@ -67,13 +67,13 @@ Module.register("MMM-HappyHours", {
     if (!this.loaded) {
       var loadingDiv = document.createElement("div");
       loadingDiv.classList.add("medium","bold");
-      loadingDiv.innerHTML = "Finding Happy Hours Near You...";
+      loadingDiv.innerHTML = "Finding Happy Hours...";
       wrapper.appendChild(loadingDiv);
       return wrapper;
     }
     //title
     var title = document.createElement("span");
-		title.classList.add("medium", "bright","title");
+		title.classList.add("bright","title","bold");
     //capitalize first letter
     var city = this.config.city.charAt(0).toUpperCase() + this.config.city.slice(1);
     var state = this.config.state.split('_')[1].toUpperCase();
