@@ -11,13 +11,12 @@ Module.register("MMM-HappyHours", {
 
   //default config
   defaults: {
-    updateInterval: 10000000,
-    initialLoadDelay: 875,
     state: 'us_va',
-    city: 'herndon',
+    city: 'richmond-6',
     useDayOfWeek: true,
     maxWidth: "400px",
-    maxHeight: "200px"
+    maxHeight: "200px",
+    scrollSpeed: 100
   },
 
   start: function() {
@@ -78,7 +77,7 @@ Module.register("MMM-HappyHours", {
     //capitalize first letter
     var city = this.config.city.charAt(0).toUpperCase() + this.config.city.slice(1);
     var state = this.config.state.split('_')[1].toUpperCase();
-		title.innerHTML = "Happy Hours in " + city + "," + state;
+		title.innerHTML = this.happyHours[0] + "(" + (this.happyHours.length - 1).toString() + ")";
 		wrapper.appendChild(title);
 
     var scrolling = document.createElement("marquee");
@@ -86,11 +85,12 @@ Module.register("MMM-HappyHours", {
     scrolling.behavior = "scroll";
     scrolling.direction = "up";
     scrolling.style.maxHeight = this.config.maxHeight;
+    scrolling.scrolldelay = this.config.scrollSpeed;
     scrolling.classList.add("small","bright","regular");
 
     //get each happy hour description and add some breaks in between to space out
-    for (i = 0; i < this.happyHours.length; i++){
-      scrolling.innerHTML += this.happyHours[i];
+    for (i = 1; i < this.happyHours.length; i++){
+      scrolling.innerHTML += i + ")" + this.happyHours[i];
       for (j = 0; j < 3; j++){
         scrolling.innerHTML += "<br>"
       }

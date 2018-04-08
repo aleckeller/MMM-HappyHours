@@ -36,6 +36,12 @@ module.exports = NodeHelper.create({
         var dom = new JSDOM(body);
         var locationAndTimesHTML = dom.window.document.querySelectorAll(".hh-description");
         var locationAndTimesText = [];
+        var headers = dom.window.document.querySelectorAll("h4");
+        for (i = 0; i < headers.length; i++){
+          if (headers[i].textContent.includes("All")){
+            locationAndTimesText[0] = headers[i].textContent.replace('All','');
+          }
+        }
         for (i = 0; i < locationAndTimesHTML.length; i++){
           locationAndTimesText.push(locationAndTimesHTML[i].textContent);
         }
