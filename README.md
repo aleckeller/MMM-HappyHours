@@ -1,4 +1,4 @@
-# MMM-NowPlayingOnSpotify
+# MMM-HappyHours
 A module for the [MagicMirror](https://github.com/MichMich/MagicMirror) project by [Michael Teeuw](https://github.com/MichMich) getting the happy hours that are in a certain location.
 
 
