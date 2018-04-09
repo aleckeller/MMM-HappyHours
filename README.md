@@ -24,3 +24,8 @@ git clone https://github.com/aleckeller/MMM-HappyHours.git
 cd MMM-HappyHours
 npm install
 ```
+
+## Configuration Options
+| Option | Description |
+|--------|-------------|
+| `state` | <p>A string that specifies the state you would like to find the happy hours in.</p><p>**Type:** `string` **OPTIONAL**<br>**Example:** `us_ca`<br>**OPTIONS:** `us_al us_ak us_az us_ar us_ca us_co us_ct us_de us_fl us_ga us_hi us_id us_il us_in us_ia us_ks us_ky us_la us_me us_md us_ma us_mi us_mn us_ms us_mo us_mt us_ne us_nv us_nh us_nj us_nm us_ny us_nc us_nd us_oh us_ok us_or us_pa us_ri us_sc us_sd us_tn us_tx us_ut us_vt us_va us_wa us_dc us_wv us_wi us_wy`<br> **Default Value:** `us_va`</p> |
