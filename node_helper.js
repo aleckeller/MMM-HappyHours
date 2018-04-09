@@ -1,10 +1,8 @@
-/* node helper */
-
 /* Magic Mirror
  * Module: MMM-HappyHours
  *
  * By Alec Keller
- * {{LICENSE}} Licensed.
+ *
  */
 
 const NodeHelper = require('node_helper');
