@@ -1,6 +1,6 @@
 {
   "name": "MMM-HappyHours",
-  "version": "1.0",
+  "version": "1.1.0",
   "description": "Module to show happy hours",
   "main": "MMM-HappyHours.js",
   "author": "Alec Keller",
